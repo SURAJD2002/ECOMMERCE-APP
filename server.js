@@ -10,36 +10,35 @@ import productRoutes from "./routes/productRoutes.js";
 import path from "path";
 import { fileURLToPath } from 'url';
 
-//configure env
+// Configure environment variables
 dotenv.config();
 
-//database config
+// Database configuration
 connectDB();
 
-//esmodule
+// ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-//rest object
+// Create Express app
 const app = express();
 
-//middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-//ROUTES
-// server.js
+// Routes
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 
 // Serve static files
-app.use(express.static(path.join(__dirname, "..", "client", "build")));
+app.use(express.static(path.join(__dirname, "/Users/SawTechnical/Desktop/ECOMMERCE APP/client/build")));
 
 // Catch-all route for client-side routing
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "/Users/SawTechnical/Desktop/ECOMMERCE APP/client/build/index.html"));
 });
 
 // Root route
@@ -47,12 +46,12 @@ app.get("/", (req, res) => {
   res.send("<h1>Welcome to ecommerce</h1>");
 });
 
-// PORT
+// Define port
 const PORT = process.env.PORT || 8080;
 
-//run listen
+// Start server
 app.listen(PORT, () => {
   console.log(
-    `Server Running on ${process.env.DEV_MODE} mode on ${PORT}`.bgCyan.white
+    `Server running in ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white
   );
 });
