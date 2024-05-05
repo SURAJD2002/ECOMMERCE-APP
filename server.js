@@ -8,62 +8,46 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import cors from "cors";
 import productRoutes from "./routes/productRoutes.js";
 import path from "path";
-import { fileURLToPath } form 'url';
-//configure env
+
+// Configure environment variables
 dotenv.config();
 
-//database config
+// Database configuration
 connectDB();
 
-//esmodule
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-//rest objest
+// Create Express app
 const app = express();
 
-//middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-//ROUTES
-// server.js
+// Routes
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 
-//static
-app.use(
-  express.static(
-    path.join(
-      __dirname,
-      "/Users/SawTechnical/Desktop/ECOMMERCE APP/client/build"
-    )
-  )
-);
+// Static files
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.get("*", function (req, res) {
-  res.sendFile(
-    path.join(
-      __dirname,
-      "/Users/SawTechnical/Desktop/ECOMMERCE APP/client/build/index.html"
-    )
-  );
+// Catch-all route for client-side routing
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
 
-//rest api
+// Root route
 app.get("/", (req, res) => {
-  res.send("<h1>welcome to ecommerce</h1>");
+  res.send("<h1>Welcome to ecommerce</h1>");
 });
 
-// PORT
+// Define port
 const PORT = process.env.PORT || 8080;
 
-//run listen
-
+// Start server
 app.listen(PORT, () => {
   console.log(
-    `Server Running on ${process.env.DEV_MODE} mode on ${PORT}`.bgCyan.white
+    `Server running in ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white
   );
 });
