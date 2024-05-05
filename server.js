@@ -1,5 +1,4 @@
 import express from "express";
-import colors from "colors";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
@@ -33,17 +32,13 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 
-// Serve static files
-app.use(express.static(path.join(__dirname, "/Users/SawTechnical/Desktop/ECOMMERCE APP/client/build")));
+// Serve static files from client/build directory
+const buildPath = path.join(__dirname, 'client', 'build');
+app.use(express.static(buildPath));
 
 // Catch-all route for client-side routing
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "/Users/SawTechnical/Desktop/ECOMMERCE APP/client/build/index.html"));
-});
-
-// Root route
-app.get("/", (req, res) => {
-  res.send("<h1>Welcome to ecommerce</h1>");
+  res.sendFile(path.join(buildPath, 'index.html'));
 });
 
 // Define port
@@ -52,7 +47,6 @@ const PORT = process.env.PORT || 8080;
 // Start server
 app.listen(PORT, () => {
   console.log(
-    `Server running in ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white
+    `Server running in ${process.env.DEV_MODE} mode on port ${PORT}`
   );
 });
- 
