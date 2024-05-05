@@ -35,11 +35,11 @@ app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 
 // Serve static files
-app.use(express.static(path.join(__dirname, "ECOMMERCE-APP", "client", "build")));
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 // Catch-all route for client-side routing
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "ECOMMERCE-APP", "client", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
 });
 
 // Root route
