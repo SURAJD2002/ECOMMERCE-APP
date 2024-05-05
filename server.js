@@ -33,8 +33,11 @@ app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 
 // Serve static files from client/build directory
-const buildPath = path.join(__dirname, 'client', 'build');
+const buildPath = path.resolve(__dirname, "../client/build");
+
 app.use(express.static(buildPath));
+app.use(express.static(path.join(__dirname, "/Users/SawTechnical/Desktop/ECOMMERCE APP/client/build")));
+
 
 // Catch-all route for client-side routing
 app.get("*", function (req, res) {
