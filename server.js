@@ -39,6 +39,7 @@ app.use(express.static(buildPath));
 app.use(express.static(path.join(__dirname, "/Users/SawTechnical/Desktop/ECOMMERCE APP/client/build")));
 
 
+
 // Catch-all route for client-side routing
 app.get("*", function (req, res) {
   res.sendFile(path.join(buildPath, 'index.html'));
