@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import chalk from "chalk";
 
 const connectDB = async () => {
     try {
@@ -7,9 +6,9 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-        console.log(chalk.bgMagenta.white(`Connected To MongoDB Database at ${conn.connection.host}`));
+        console.log(`Connected To MongoDB Database at ${conn.connection.host}`.bgMagenta.white);
     } catch (error) {
-        console.error(chalk.bgRed.white(`Error in MongoDB connection: ${error.message}`));
+        console.error(`Error in MongoDB connection: ${error.message}`.bgRed.white);
 
         // Log the stack trace during development
         if (process.env.NODE_ENV === 'development') {
@@ -17,5 +16,6 @@ const connectDB = async () => {
         }
     }
 };
+
 
 export default connectDB;
